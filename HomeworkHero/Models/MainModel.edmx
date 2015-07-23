@@ -1,0 +1,248 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="HeroModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EXP">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Level" Type="int" Nullable="false" />
+          <Property Name="expNeededToGetLevel" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Hero">
+          <Key>
+            <PropertyRef Name="HeroID" />
+          </Key>
+          <Property Name="HeroID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Gender" Type="int" Nullable="false" />
+          <Property Name="Level" Type="int" Nullable="false" />
+          <Property Name="ImageFilePath" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HomeWork">
+          <Key>
+            <PropertyRef Name="HomeWorkID" />
+          </Key>
+          <Property Name="HomeWorkID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserID" Type="int" Nullable="false" />
+          <Property Name="MonsterID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Class" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Due Date" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="isComplete" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Monster">
+          <Key>
+            <PropertyRef Name="MonsterID" />
+          </Key>
+          <Property Name="MonsterID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="imageFilePathAlive" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="imageFilePathDead" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="isAlive" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Hero Gender" Type="int" Nullable="false" />
+          <Property Name="Level" Type="int" Nullable="false" />
+          <Property Name="currExp" Type="int" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="MonsterID">
+          <End Role="Monster" Type="Self.Monster" Multiplicity="1" />
+          <End Role="HomeWork" Type="Self.HomeWork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Monster">
+              <PropertyRef Name="MonsterID" />
+            </Principal>
+            <Dependent Role="HomeWork">
+              <PropertyRef Name="MonsterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HeroModelStoreContainer">
+          <EntitySet Name="EXP" EntityType="Self.EXP" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hero" EntityType="Self.Hero" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HomeWork" EntityType="Self.HomeWork" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Monster" EntityType="Self.Monster" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="MonsterID" Association="Self.MonsterID">
+            <End Role="Monster" EntitySet="Monster" />
+            <End Role="HomeWork" EntitySet="HomeWork" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="HeroModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="EXP">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
+          <Property Name="expNeededToGetLevel" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Hero">
+          <Key>
+            <PropertyRef Name="HeroID" />
+          </Key>
+          <Property Name="HeroID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Gender" Type="Int32" Nullable="false" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
+          <Property Name="ImageFilePath" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
+        <EntityType Name="HomeWork">
+          <Key>
+            <PropertyRef Name="HomeWorkID" />
+          </Key>
+          <Property Name="HomeWorkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserID" Type="Int32" Nullable="false" />
+          <Property Name="MonsterID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Class" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Due_Date" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isComplete" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Monster" Relationship="Self.MonsterID" FromRole="HomeWork" ToRole="Monster" />
+        </EntityType>
+        <EntityType Name="Monster">
+          <Key>
+            <PropertyRef Name="MonsterID" />
+          </Key>
+          <Property Name="MonsterID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="imageFilePathAlive" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="imageFilePathDead" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="isAlive" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="HomeWork" Relationship="Self.MonsterID" FromRole="Monster" ToRole="HomeWork" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="UserID" />
+          </Key>
+          <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Hero_Gender" Type="Int32" Nullable="false" />
+          <Property Name="Level" Type="Int32" Nullable="false" />
+          <Property Name="currExp" Type="Int32" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <Association Name="MonsterID">
+          <End Role="Monster" Type="Self.Monster" Multiplicity="1" />
+          <End Role="HomeWork" Type="Self.HomeWork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Monster">
+              <PropertyRef Name="MonsterID" />
+            </Principal>
+            <Dependent Role="HomeWork">
+              <PropertyRef Name="MonsterID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="HeroEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EXPs" EntityType="Self.EXP" />
+          <EntitySet Name="Heroes" EntityType="Self.Hero" />
+          <EntitySet Name="HomeWork" EntityType="Self.HomeWork" />
+          <EntitySet Name="Monsters" EntityType="Self.Monster" />
+          <EntitySet Name="Users" EntityType="Self.User" />
+          <AssociationSet Name="MonsterID" Association="Self.MonsterID">
+            <End Role="Monster" EntitySet="Monsters" />
+            <End Role="HomeWork" EntitySet="HomeWork" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="HeroModelStoreContainer" CdmEntityContainer="HeroEntities">
+          <EntitySetMapping Name="EXPs">
+            <EntityTypeMapping TypeName="HeroModel.EXP">
+              <MappingFragment StoreEntitySet="EXP">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="expNeededToGetLevel" ColumnName="expNeededToGetLevel" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Heroes">
+            <EntityTypeMapping TypeName="HeroModel.Hero">
+              <MappingFragment StoreEntitySet="Hero">
+                <ScalarProperty Name="HeroID" ColumnName="HeroID" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="ImageFilePath" ColumnName="ImageFilePath" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HomeWork">
+            <EntityTypeMapping TypeName="HeroModel.HomeWork">
+              <MappingFragment StoreEntitySet="HomeWork">
+                <ScalarProperty Name="HomeWorkID" ColumnName="HomeWorkID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="MonsterID" ColumnName="MonsterID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Class" ColumnName="Class" />
+                <ScalarProperty Name="Due_Date" ColumnName="Due Date" />
+                <ScalarProperty Name="isComplete" ColumnName="isComplete" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Monsters">
+            <EntityTypeMapping TypeName="HeroModel.Monster">
+              <MappingFragment StoreEntitySet="Monster">
+                <ScalarProperty Name="MonsterID" ColumnName="MonsterID" />
+                <ScalarProperty Name="imageFilePathAlive" ColumnName="imageFilePathAlive" />
+                <ScalarProperty Name="imageFilePathDead" ColumnName="imageFilePathDead" />
+                <ScalarProperty Name="isAlive" ColumnName="isAlive" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="HeroModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Hero_Gender" ColumnName="Hero Gender" />
+                <ScalarProperty Name="Level" ColumnName="Level" />
+                <ScalarProperty Name="currExp" ColumnName="currExp" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
